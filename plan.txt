@@ -1,8 +1,7 @@
 
 
-2. User paddle
-2.0 3 lives
-2.1 A&D to control movement
+
+
 2.2 space to shoot
 
 3. Barriers with health
@@ -25,3 +24,7 @@
 
 1. Create Window
 1.1 Black background
+
+2. User paddle
+2.0 3 lives
+2.1 A&D to control movement
