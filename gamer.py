@@ -12,9 +12,12 @@ class Gamer(Turtle):
         self.health=3
 
     def go_right(self):
-        new_x=self.xcor() + 20
-        self.goto(new_x,self.ycor())
+        if self.xcor() <=320:
+            new_x=self.xcor() + 20
+            self.goto(new_x,self.ycor())
 
     def go_left(self):
-        new_x = self.xcor() - 20
-        self.goto(new_x, self.ycor())
+        if self.xcor() >= -320:
+            new_x = self.xcor() - 20
+            self.goto(new_x, self.ycor())
+

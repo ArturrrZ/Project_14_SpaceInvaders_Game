@@ -9,11 +9,14 @@ screen.bgcolor('black')
 gamer=Gamer()
 
 screen.listen()
+
+screen.onkey(gamer.go_left, 'a')
 screen.onkey(gamer.go_right,'d')
-screen.onkey(gamer.go_left,'a')
+
 
 screen.onkey(gamer.go_right,'Right')
 screen.onkey(gamer.go_left,'Left')
+
 
 
 
