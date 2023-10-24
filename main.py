@@ -10,8 +10,24 @@ screen.tracer(0)
 
 gamer=Gamer()
 bullets=[]
+
+# def create_bullet():
+#     bullets.append(Bullets(gamer.xcor()))
+def move_bullets():
+    for each in bullets:
+        each.goto(x=each.xcor(),y=each.ycor() + 10)
+gamer_can_shoot = True
+def enable_shooting():
+    global gamer_can_shoot
+    gamer_can_shoot = True
+
 def create_bullet():
-    bullets.append(Bullets(gamer.xcor()))
+    global gamer_can_shoot
+    if gamer_can_shoot:
+        gamer_can_shoot = False
+        bullets.append(Bullets(gamer.xcor()))
+        tr.ontimer(enable_shooting,t= 1000)
+
 screen.listen()
 screen.onkey(gamer.go_left, 'a')
 screen.onkey(gamer.go_right,'d')
@@ -26,8 +42,7 @@ while game_is_on:
 
     print(bullets)
 
-    for each in bullets:
-        each.goto(x=each.xcor(),y=each.ycor() + 10)
+    move_bullets()
 
 
 
