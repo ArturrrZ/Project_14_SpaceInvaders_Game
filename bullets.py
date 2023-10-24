@@ -8,3 +8,5 @@ class Bullets(Turtle):
         self.shape('square')
         self.shapesize(stretch_len=0.25, stretch_wid=0.5)
         self.goto(x=x_start,y=-230)
+        self.alien_bullet=False
+

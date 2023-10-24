@@ -5,6 +5,7 @@ from bullets import Bullets
 from barriers import Barrier
 from aliens import Aliens
 from scoreboard import Scoreboard
+import random
 screen=tr.Screen()
 screen.title('Space Invaders Game')
 screen.setup(width=720,height=576)
@@ -77,11 +78,24 @@ game_is_on=True
 while game_is_on:
     time.sleep(0.05)
     screen.update()
+    if random.randint(0,30)==1:
+        print('hello')
+        shooter=random.choice(alien_ships)
+        bullet=Bullets(shooter.xcor())
+        bullet.color('orange')
+        bullet.goto(shooter.xcor(),shooter.ycor())
+        bullet.alien_bullet=True
+        bullets.append(bullet)
+
     move_aliens()
 
     for each in bullets:
+
         #move them forward
-        each.goto(x=each.xcor(), y=each.ycor() + 10)
+        if each.alien_bullet:
+            each.goto(x=each.xcor(), y=each.ycor()  -10)
+        else:
+            each.goto(x=each.xcor(), y=each.ycor() + 10)
         #detect collision with barriers:
         if barrier_left.distance(each) < 50 and each.ycor() > -130:
             each.hideturtle()
@@ -115,16 +129,17 @@ while game_is_on:
 
         #collision with aliens
         for ship in alien_ships:
-            if ship.distance(each) < 20:
-                ship.hideturtle()
+            if each.alien_bullet == False:
+                if ship.distance(each) < 20:
+                    ship.hideturtle()
 
-                ship.goto(1000,1000)
-                alien_ships.remove(ship)
-                each.hideturtle()
-                bullets.remove(each)
-                each.goto(1000,1000)
-                score.score +=1
-                score.update_score()
+                    ship.goto(1000,1000)
+                    alien_ships.remove(ship)
+                    each.hideturtle()
+                    bullets.remove(each)
+                    each.goto(1000,1000)
+                    score.score +=1
+                    score.update_score()
 
 
         #reload aliens
