@@ -16,6 +16,7 @@ gamer=Gamer()
 bullets=[]
 score=Scoreboard()
 
+
 # def create_bullet():
 #     bullets.append(Bullets(gamer.xcor()))
 
@@ -79,7 +80,7 @@ while game_is_on:
     time.sleep(0.05)
     screen.update()
     if random.randint(0,30)==1:
-        print('hello')
+        # print('alien shoot')
         shooter=random.choice(alien_ships)
         bullet=Bullets(shooter.xcor())
         bullet.color('orange')
@@ -105,7 +106,7 @@ while game_is_on:
                 barrier_left.health_score.clear()
             else:
                 barrier_left.health -=1
-                barrier_left.write_healalth()
+                barrier_left.write_health()
 
         if barrier_middle.distance(each) < 50 and each.ycor() > -130:
             each.hideturtle()
@@ -140,6 +141,18 @@ while game_is_on:
                     each.goto(1000,1000)
                     score.score +=1
                     score.update_score()
+
+        if each.alien_bullet and each.distance(gamer) < 20:
+            print('MINUS LIFE')
+            bullets.remove(each)
+            each.hideturtle()
+            gamer.health -=1
+            gamer.update_health()
+            if gamer.health ==0:
+                game_is_on = False
+                score.goto(0, 0)
+                score.write('GAME IS OVER', align='center', font=('Courier', 30, 'bold'))
+
 
 
         #reload aliens
