@@ -3,6 +3,7 @@ from gamer import  Gamer
 import time
 from bullets import Bullets
 from barriers import Barrier
+from aliens import Aliens
 
 screen=tr.Screen()
 screen.title('Space Invaders Game')
@@ -42,6 +43,20 @@ barrier_left=Barrier(-240,-120)
 barrier_middle=Barrier(0,-120)
 barrier_right=Barrier(240,-120)
 
+#columns of alien ships
+alien_ships=[]
+y=220
+x=-280
+for _ in range(10):
+
+    for alien_ship in range(5):
+        ship=Aliens(x,y)
+        y-=40
+        alien_ships.append(ship)
+    x+=40
+    y = 220
+
+
 game_is_on=True
 while game_is_on:
     time.sleep(0.05)
@@ -50,6 +65,7 @@ while game_is_on:
     for each in bullets:
         #move them forward
         each.goto(x=each.xcor(), y=each.ycor() + 10)
+        #detect collision with barriers:
         if barrier_left.distance(each) < 50 and each.ycor() > -130:
             each.hideturtle()
             bullets.remove(each)
@@ -58,7 +74,7 @@ while game_is_on:
                 barrier_left.health_score.clear()
             else:
                 barrier_left.health -=1
-                barrier_left.write_health()
+                barrier_left.write_healalth()
 
         if barrier_middle.distance(each) < 50 and each.ycor() > -130:
             each.hideturtle()

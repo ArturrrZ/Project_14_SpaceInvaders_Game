@@ -1,4 +1,4 @@
-import turtle
+
 from turtle import Turtle
 
 
@@ -12,7 +12,7 @@ class Barrier(Turtle):
         self.goto(x,y)
 
         self.health=30
-        self.health_score=turtle.Turtle()
+        self.health_score=Turtle()
         self.health_score.color('white')
         self.health_score.hideturtle()
         self.health_score.goto(x=x,y=y-30)
