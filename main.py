@@ -25,12 +25,13 @@ def enable_shooting():
     global gamer_can_shoot
     gamer_can_shoot = True
 
+shoot_delay=100
 def create_bullet():
-    global gamer_can_shoot
+    global gamer_can_shoot, shoot_delay
     if gamer_can_shoot:
         gamer_can_shoot = False
         bullets.append(Bullets(gamer.xcor()))
-        tr.ontimer(enable_shooting,t= 700)
+        tr.ontimer(enable_shooting,t= shoot_delay)
 def move_bullets():
     for each in bullets:
         each.goto(x=each.xcor(),y=each.ycor() + 10)
@@ -72,14 +73,25 @@ def move_aliens():
             score.goto(0,0)
             score.write('GAME IS OVER', align='center',font=('Courier',30,'bold'))
 
+def write_level():
+    level_turtle.clear()
+    level_turtle.write(f"Your level: {LEVEL}",align='center',font=('Courier',10,'normal'))
+
+LEVEL=0
+level_turtle=tr.Turtle()
+level_turtle.penup()
+level_turtle.hideturtle()
+level_turtle.color('white')
+level_turtle.goto(250,240)
+write_level()
 
 
-
+chance_to_shoot=30
 game_is_on=True
 while game_is_on:
     time.sleep(0.05)
     screen.update()
-    if random.randint(0,30)==1:
+    if random.randint(0,chance_to_shoot)==1:
         # print('alien shoot')
         shooter=random.choice(alien_ships)
         bullet=Bullets(shooter.xcor())
@@ -155,7 +167,7 @@ while game_is_on:
 
 
 
-        #reload aliens
+        #reload aliens,speed them up, level up, slow down delay for gamer
         if len(alien_ships) ==0:
             # columns of alien ships
             alien_ships = []
@@ -169,6 +181,13 @@ while game_is_on:
                     alien_ships.append(ship)
                 x += 40
                 y = 220
+            shoot_delay += 200
+            if chance_to_shoot > 10:
+                chance_to_shoot -=10
+            LEVEL +=1
+            write_level()
+
+
 
 
 
