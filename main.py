@@ -56,12 +56,22 @@ for _ in range(10):
     x+=40
     y = 220
 
+def move_aliens():
+
+    for alien in alien_ships:
+        alien.move_horiz()
+        alien.ymove=0
+        if alien_ships[46].xcor() > 300 or alien_ships[0].xcor() < -300:
+                alien.flip_x()
+                alien.ymove -=20
+
+
 
 game_is_on=True
 while game_is_on:
     time.sleep(0.05)
     screen.update()
-
+    move_aliens()
     for each in bullets:
         #move them forward
         each.goto(x=each.xcor(), y=each.ycor() + 10)
@@ -95,6 +105,16 @@ while game_is_on:
             else:
                 barrier_right.health -=1
                 barrier_right.write_health()
+
+        #collision with aliens
+        for ship in alien_ships:
+            if ship.distance(each) < 20:
+                ship.hideturtle()
+                ship.goto(1000,1000)
+                each.hideturtle()
+                bullets.remove(each)
+
+
 
 
 

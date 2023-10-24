@@ -4,9 +4,8 @@
 
 
 
-4. alin ships by columns.
-4.1 move them
-4.2 next to the border change their horizontal path and move closer to the user
+
+
 4.3 shoot randomly
 
 5. score label
@@ -29,3 +28,7 @@
 
 3. Barriers with health
 3.1 detect collision with bullet
+
+4. alin ships by columns.
+4.1 move them
+4.2 next to the border change their horizontal path and move closer to the user

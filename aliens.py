@@ -10,3 +10,12 @@ class Aliens(Turtle):
         self.shape('square')
         self.shapesize(stretch_len=1,stretch_wid=1)
         self.goto(x,y)
+        self.xmove=1
+        self.ymove=0
+
+    def move_horiz(self):
+        new_x=self.xcor() + self.xmove
+        y=self.ycor() + self.ymove
+        self.goto(new_x,y)
+    def flip_x(self):
+        self.xmove *= -1
