@@ -4,7 +4,7 @@ import time
 from bullets import Bullets
 from barriers import Barrier
 from aliens import Aliens
-
+from scoreboard import Scoreboard
 screen=tr.Screen()
 screen.title('Space Invaders Game')
 screen.setup(width=720,height=576)
@@ -13,6 +13,7 @@ screen.tracer(0)
 
 gamer=Gamer()
 bullets=[]
+score=Scoreboard()
 
 # def create_bullet():
 #     bullets.append(Bullets(gamer.xcor()))
@@ -57,13 +58,18 @@ for _ in range(10):
     y = 220
 
 def move_aliens():
-
+    global game_is_on
     for alien in alien_ships:
         alien.move_horiz()
         alien.ymove=0
-        if alien_ships[46].xcor() > 300 or alien_ships[0].xcor() < -300:
+        if alien_ships[len(alien_ships)-1].xcor() > 300 or alien_ships[0].xcor() < -300:
                 alien.flip_x()
-                alien.ymove -=20
+                alien.ymove -=40
+        if alien.ycor() <-210:
+            game_is_on=False
+            score.goto(0,0)
+            score.write('GAME IS OVER', align='center',font=('Courier',30,'bold'))
+
 
 
 
@@ -72,6 +78,7 @@ while game_is_on:
     time.sleep(0.05)
     screen.update()
     move_aliens()
+
     for each in bullets:
         #move them forward
         each.goto(x=each.xcor(), y=each.ycor() + 10)
@@ -110,9 +117,31 @@ while game_is_on:
         for ship in alien_ships:
             if ship.distance(each) < 20:
                 ship.hideturtle()
+
                 ship.goto(1000,1000)
+                alien_ships.remove(ship)
                 each.hideturtle()
                 bullets.remove(each)
+                each.goto(1000,1000)
+                score.score +=1
+                score.update_score()
+
+
+        #reload aliens
+        if len(alien_ships) ==0:
+            # columns of alien ships
+            alien_ships = []
+            y = 220
+            x = -280
+            for _ in range(10):
+
+                for alien_ship in range(5):
+                    ship = Aliens(x, y)
+                    y -= 40
+                    alien_ships.append(ship)
+                x += 40
+                y = 220
+
 
 
 
