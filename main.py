@@ -47,7 +47,39 @@ while game_is_on:
     time.sleep(0.05)
     screen.update()
 
-    move_bullets()
+    for each in bullets:
+        #move them forward
+        each.goto(x=each.xcor(), y=each.ycor() + 10)
+        if barrier_left.distance(each) < 50 and each.ycor() > -130:
+            each.hideturtle()
+            bullets.remove(each)
+            if barrier_left.health ==1:
+                barrier_left.goto(1000,1000)
+                barrier_left.health_score.clear()
+            else:
+                barrier_left.health -=1
+                barrier_left.write_health()
+
+        if barrier_middle.distance(each) < 50 and each.ycor() > -130:
+            each.hideturtle()
+            bullets.remove(each)
+            if barrier_middle.health ==1:
+                barrier_middle.goto(1000,1000)
+                barrier_middle.health_score.clear()
+            else:
+                barrier_middle.health -=1
+                barrier_middle.write_health()
+
+        if barrier_right.distance(each) < 50 and each.ycor() > -130:
+            each.hideturtle()
+            bullets.remove(each)
+            if barrier_right.health ==1:
+                barrier_right.goto(1000,1000)
+                barrier_right.health_score.clear()
+            else:
+                barrier_right.health -=1
+                barrier_right.write_health()
+
 
 
 
